@@ -1,8 +1,8 @@
-﻿namespace OnlineTradePlatform.Core
+﻿namespace OnlineTradePlatform.Core.Entities
 {
     public class Ad : EntityBase
     {
-        User User { get; set; }
+        public User User { get; set; }
 
         string AdName { get; set; }
     }

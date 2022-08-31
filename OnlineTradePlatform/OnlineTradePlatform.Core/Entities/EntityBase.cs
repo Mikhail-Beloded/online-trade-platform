@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineTradePlatform.Core
+namespace OnlineTradePlatform.Core.Entities
 {
     public class EntityBase
     {
