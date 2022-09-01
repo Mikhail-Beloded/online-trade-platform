@@ -1,14 +1,15 @@
-﻿using OnlineTradePlatform.Application.Paging;
+﻿using OnlineTradePlatform.Application.DTOs;
+using OnlineTradePlatform.Application.Paging;
 using OnlineTradePlatform.Core.Entities;
 
 namespace OnlineTradePlatform.Application.IServices
 {
     public interface IUsersService
     {
-        Task AddUser(User user);
+        Task AddUser(User user, CancellationToken cancellationToken);
 
-        Task<User> GetUserById(int id);
+        Task<UserDTO> GetUserByIdAsync(int id, CancellationToken cancellationToken);
 
-        Task<PagedList<User>> GetUsersPageAsync(PageParameters pageParameters, string filter);
+        Task<PagedList<UserDTO>> GetUsersPageAsync(PageParameters pageParameters, string filter, CancellationToken cancellationToken);
     }
 }

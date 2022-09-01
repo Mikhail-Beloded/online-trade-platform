@@ -1,14 +1,15 @@
-﻿using OnlineTradePlatform.Application.Paging;
+﻿using OnlineTradePlatform.Application.DTOs;
+using OnlineTradePlatform.Application.Paging;
 using OnlineTradePlatform.Core.Entities;
 
 namespace OnlineTradePlatform.Application.IServices
 {
     public interface IAdService
     {
-        Task AddAdAsync(Ad ad);
+        Task AddAdAsync(Ad ad, CancellationToken cancellationToken);
 
-        Task<Ad> GetAdById(int id);
+        Task<AdDTO> GetAdByIdAsync(int id, CancellationToken cancellationToken);
 
-        Task<PagedList<Ad>> GetAdPageAsync (PageParameters pageParameters, string filter);
+        Task<PagedList<AdDTO>> GetAdPageAsync (PageParameters pageParameters, string filter, CancellationToken cancellationToken);
     }
 }
