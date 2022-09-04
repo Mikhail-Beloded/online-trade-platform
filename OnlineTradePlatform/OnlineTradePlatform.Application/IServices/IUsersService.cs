@@ -1,6 +1,7 @@
 ﻿using OnlineTradePlatform.Application.DTOs;
 using OnlineTradePlatform.Application.Paging;
 using OnlineTradePlatform.Core.Entities;
+using System.Linq.Expressions;
 
 namespace OnlineTradePlatform.Application.IServices
 {
@@ -10,6 +11,8 @@ namespace OnlineTradePlatform.Application.IServices
 
         Task<UserDTO> GetUserByIdAsync(int id, CancellationToken cancellationToken);
 
-        Task<PagedList<UserDTO>> GetUsersPageAsync(PageParameters pageParameters, string filter, CancellationToken cancellationToken);
+        Task<PagedList<UserDTO>> GetUsersPageAsync(PageParameters pageParameters, CancellationToken cancellationToken);
+
+        Task<PagedList<UserDTO>> GetUsersPageAsync(PageParameters pageParameters, Expression<Func<User, bool>> predicate, CancellationToken cancellationToken);
     }
 }

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineTradePlatform.Application\OnlineTradePlatform.Application.csproj" />
     <ProjectReference Include="..\OnlineTradePlatform.Core\OnlineTradePlatform.Core.csproj" />
   </ItemGroup>
 
