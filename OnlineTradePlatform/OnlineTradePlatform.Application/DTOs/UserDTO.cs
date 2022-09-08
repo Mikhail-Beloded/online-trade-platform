@@ -2,7 +2,7 @@
 
 namespace OnlineTradePlatform.Application.DTOs
 {
-    public class UserDTO
+    public class UserDto
     {
         public string Name { get; set; }
 

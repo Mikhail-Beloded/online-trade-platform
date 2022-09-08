@@ -4,6 +4,6 @@
     {
         public User User { get; set; }
 
-        public string AdName { get; set; }
+        public string Name { get; set; }
     }
 }

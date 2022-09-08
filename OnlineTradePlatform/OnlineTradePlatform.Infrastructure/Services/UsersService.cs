@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using OnlineTradePlatform.Application.Mapping;
 using OnlineTradePlatform.Application.IRepositories;
 using OnlineTradePlatform.Application.DTOs;
 using OnlineTradePlatform.Application.IServices;
@@ -10,33 +10,45 @@ namespace OnlineTradePlatform.Infrastructure.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly IMapper _mapper;
+        private readonly Mapper _mapper;
 
         private readonly IGenericRepository<User> _genericRepository;
 
-        public async Task AddUser(User user, CancellationToken cancellationToken)
+        public UsersService(IGenericRepository<User> genericRepository)
         {
-            await this._genericRepository.AddAsync(user, cancellationToken);
+            this._genericRepository = genericRepository;
         }
 
-        public async Task<UserDTO> GetUserByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task AddUser(UserDto user, CancellationToken cancellationToken)
+        {
+            var entity = this._mapper.MapUserFromDto(user);
+            await this._genericRepository.AddAsync(entity, cancellationToken);
+        }
+
+        public async Task DeleteUserAsync(int id, CancellationToken cancellationToken)
         {
             var entity = await this._genericRepository.GetOneAsync(id, cancellationToken);
-            var resultDto = _mapper.Map<UserDTO>(entity);
-            return resultDto;
+            await this._genericRepository.DeleteAsync(entity, cancellationToken);
         }
 
-        public async Task<PagedList<UserDTO>> GetUsersPageAsync(PageParameters pageParameters, CancellationToken cancellationToken)
+        public async Task<UserDto> GetUserByIdAsync(int id, CancellationToken cancellationToken)
+        {
+            var entity = await this._genericRepository.GetOneAsync(id, cancellationToken);
+            UserDto dto = this._mapper.MapUserToDto(entity);
+            return dto;
+        }
+
+        public async Task<PagedList<UserDto>> GetUsersPageAsync(PageParameters pageParameters, CancellationToken cancellationToken)
         {
             var entities = await this._genericRepository.GetPageAsync(pageParameters, cancellationToken);
-            var users = _mapper.Map<PagedList<UserDTO>>(entities);
+            var users = this._mapper.MapUserListToDto(entities);
             return users;
         }
 
-        public async Task<PagedList<UserDTO>> GetUsersPageAsync(PageParameters pageParameters, Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
+        public async Task<PagedList<UserDto>> GetUsersPageAsync(PageParameters pageParameters, Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
         {
             var entities = await this._genericRepository.GetPageAsync(pageParameters, predicate, cancellationToken);
-            var users = _mapper.Map<PagedList<UserDTO>>(entities);
+            var users = this._mapper.MapUserListToDto(entities);
             return users;
         }
     }

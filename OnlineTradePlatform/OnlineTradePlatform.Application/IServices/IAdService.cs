@@ -7,12 +7,14 @@ namespace OnlineTradePlatform.Application.IServices
 {
     public interface IAdService
     {
-        Task AddAdAsync(Ad ad, CancellationToken cancellationToken);
+        Task AddAdAsync(AdDto ad, CancellationToken cancellationToken);
 
-        Task<AdDTO> GetAdByIdAsync(int id, CancellationToken cancellationToken);
+        Task<AdDto> GetAdByIdAsync(int id, CancellationToken cancellationToken);
 
-        Task<PagedList<AdDTO>> GetAdPageAsync (PageParameters pageParameters, CancellationToken cancellationToken);
+        Task<PagedList<AdDto>> GetAdPageAsync (PageParameters pageParameters, CancellationToken cancellationToken);
 
-        Task<PagedList<AdDTO>> GetAdPageAsync(PageParameters pageParameters, Expression<Func<Ad, bool>> predicate, CancellationToken cancellationToken);
+        Task<PagedList<AdDto>> GetAdPageAsync(PageParameters pageParameters, Expression<Func<Ad, bool>> predicate, CancellationToken cancellationToken);
+    
+        Task DeleteAdAsync(int id, CancellationToken cancellationToken);
     }
 }

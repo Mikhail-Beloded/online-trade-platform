@@ -12,7 +12,7 @@ namespace OnlineTradePlatform.Application.IRepositories
         
         Task DeleteAsync(TEntity entity, CancellationToken cancellationToken);
         
-        Task<TEntity> GetOneAsync(int id, CancellationToken cancellationToken);
+        Task<TEntity?> GetOneAsync(int id, CancellationToken cancellationToken);
 
         Task<PagedList<TEntity>> GetPageAsync (PageParameters parameters, CancellationToken cancellationToken);
 

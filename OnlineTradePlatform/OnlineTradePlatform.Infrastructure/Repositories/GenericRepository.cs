@@ -31,9 +31,9 @@ namespace OnlineTradePlatform.Infrastructure.Repositories
             await this._db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<TEntity> GetOneAsync(int id, CancellationToken cancellationToken)
+        public Task<TEntity?> GetOneAsync(int id, CancellationToken cancellationToken)
         {
-            return await this._table.FirstOrDefaultAsync<TEntity>(entity => entity.Id == id, cancellationToken);
+            return this._table.FirstOrDefaultAsync<TEntity>(entity => entity.Id == id, cancellationToken);
         }
 
         public async Task<PagedList<TEntity>> GetPageAsync(PageParameters parameters, CancellationToken cancellationToken)
