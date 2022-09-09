@@ -10,7 +10,7 @@ namespace OnlineTradePlatform.Infrastructure.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly Mapper _mapper;
+        private readonly Mapper _mapper = new();
 
         private readonly IGenericRepository<User> _genericRepository;
 
@@ -21,7 +21,7 @@ namespace OnlineTradePlatform.Infrastructure.Services
 
         public async Task AddUser(UserDto user, CancellationToken cancellationToken)
         {
-            var entity = this._mapper.MapUserFromDto(user);
+            var entity = this._mapper.Map(user);
             await this._genericRepository.AddAsync(entity, cancellationToken);
         }
 
@@ -34,21 +34,21 @@ namespace OnlineTradePlatform.Infrastructure.Services
         public async Task<UserDto> GetUserByIdAsync(int id, CancellationToken cancellationToken)
         {
             var entity = await this._genericRepository.GetOneAsync(id, cancellationToken);
-            UserDto dto = this._mapper.MapUserToDto(entity);
+            var dto = this._mapper.Map(entity);
             return dto;
         }
 
         public async Task<PagedList<UserDto>> GetUsersPageAsync(PageParameters pageParameters, CancellationToken cancellationToken)
         {
             var entities = await this._genericRepository.GetPageAsync(pageParameters, cancellationToken);
-            var users = this._mapper.MapUserListToDto(entities);
+            var users = this._mapper.Map(entities);
             return users;
         }
 
         public async Task<PagedList<UserDto>> GetUsersPageAsync(PageParameters pageParameters, Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
         {
             var entities = await this._genericRepository.GetPageAsync(pageParameters, predicate, cancellationToken);
-            var users = this._mapper.MapUserListToDto(entities);
+            var users = this._mapper.Map(entities);
             return users;
         }
     }

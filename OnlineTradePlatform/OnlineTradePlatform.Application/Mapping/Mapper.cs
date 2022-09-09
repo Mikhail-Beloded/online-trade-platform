@@ -17,37 +17,37 @@ namespace OnlineTradePlatform.Application.Mapping
 
         }).CreateMapper();
 
-        public UserDto MapUserToDto(User user)
+        public UserDto Map(User user)
         {
             var dto = this._mapper.Map<UserDto>(user);
             return dto;
         }
 
-        public User MapUserFromDto(UserDto userDto)
+        public User Map(UserDto userDto)
         {
             var user = this._mapper.Map<User>(userDto);
             return user;
         }
 
-        public AdDto MapAdToDto(Ad ad)
+        public AdDto Map(Ad ad)
         {
             var dto = this._mapper.Map<AdDto>(ad);
             return dto;
         }
 
-        public Ad MapAdFromDto(AdDto adDto)
+        public Ad Map(AdDto adDto)
         {
             var ad = this._mapper.Map<Ad>(adDto);
             return ad;
         }
 
-        public PagedList<AdDto> MapAdListToDto(PagedList<Ad> ads)
+        public PagedList<AdDto> Map(PagedList<Ad> ads)
         {
             var dtos = this._mapper.Map<PagedList<AdDto>>(ads);
             return dtos;
         }
 
-        public PagedList<UserDto> MapUserListToDto(PagedList<User> users)
+        public PagedList<UserDto> Map(PagedList<User> users)
         {
             var dtos = this._mapper.Map<PagedList<UserDto>>(users);
             return dtos;

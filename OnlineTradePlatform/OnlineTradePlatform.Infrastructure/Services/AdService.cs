@@ -10,7 +10,7 @@ namespace OnlineTradePlatform.Infrastructure.Services
 {
     public class AdService : IAdService
     {
-        private readonly Mapper _mapper;
+        private readonly Mapper _mapper = new();
 
         private readonly IGenericRepository<Ad> _adRepository;
 
@@ -21,7 +21,7 @@ namespace OnlineTradePlatform.Infrastructure.Services
 
         public async Task AddAdAsync(AdDto ad, CancellationToken cancellationToken)
         {
-            var entity = this._mapper.MapAdFromDto(ad);
+            var entity = this._mapper.Map(ad);
             await this._adRepository.AddAsync(entity, cancellationToken);
         }
 
@@ -34,21 +34,21 @@ namespace OnlineTradePlatform.Infrastructure.Services
         public async Task<AdDto> GetAdByIdAsync(int id, CancellationToken cancellationToken)
         {
             var entity = await this._adRepository.GetOneAsync(id, cancellationToken);
-            AdDto dto = this._mapper.MapAdToDto(entity);
+            var dto = this._mapper.Map(entity);
             return dto;
         }
 
         public async Task<PagedList<AdDto>> GetAdPageAsync(PageParameters pageParameters, CancellationToken cancellationToken)
         {
             var entities = await this._adRepository.GetPageAsync(pageParameters, cancellationToken);
-            var ads = this._mapper.MapAdListToDto(entities);
+            var ads = this._mapper.Map(entities);
             return ads;
         }
 
         public async Task<PagedList<AdDto>> GetAdPageAsync(PageParameters pageParameters, Expression<Func<Ad, bool>> predicate, CancellationToken cancellationToken)
         {
             var entities = await this._adRepository.GetPageAsync(pageParameters, predicate, cancellationToken);
-            var ads = this._mapper.MapAdListToDto(entities);
+            var ads = this._mapper.Map(entities);
             return ads;
         }
     }
