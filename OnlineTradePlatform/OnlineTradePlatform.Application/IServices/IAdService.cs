@@ -7,6 +7,8 @@ namespace OnlineTradePlatform.Application.IServices
 {
     public interface IAdService
     {
+        Task UpdateAsync(AdDto adDto, CancellationToken cancellationToken);
+
         Task AddAdAsync(AdDto ad, CancellationToken cancellationToken);
 
         Task<AdDto> GetAdByIdAsync(int id, CancellationToken cancellationToken);
@@ -15,6 +17,6 @@ namespace OnlineTradePlatform.Application.IServices
 
         Task<PagedList<AdDto>> GetAdPageAsync(PageParameters pageParameters, Expression<Func<Ad, bool>> predicate, CancellationToken cancellationToken);
     
-        Task DeleteAdAsync(int id, CancellationToken cancellationToken);
+        Task DeleteAdAsync(AdDto dto, CancellationToken cancellationToken);
     }
 }

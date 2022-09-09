@@ -25,9 +25,9 @@ namespace OnlineTradePlatform.Infrastructure.Services
             await this._adRepository.AddAsync(entity, cancellationToken);
         }
 
-        public async Task DeleteAdAsync(int id, CancellationToken cancellationToken)
+        public async Task DeleteAdAsync(AdDto dto, CancellationToken cancellationToken)
         {
-            var ad = await this._adRepository.GetOneAsync(id, cancellationToken);
+            var ad = this._mapper.Map(dto);
             await this._adRepository.DeleteAsync(ad, cancellationToken);
         }
 
@@ -50,6 +50,12 @@ namespace OnlineTradePlatform.Infrastructure.Services
             var entities = await this._adRepository.GetPageAsync(pageParameters, predicate, cancellationToken);
             var ads = this._mapper.Map(entities);
             return ads;
+        }
+
+        public async Task UpdateAsync(AdDto adDto, CancellationToken cancellationToken)
+        {
+            var ad = this._mapper.Map(adDto);
+            await this._adRepository.UpdateAsync(ad, cancellationToken);
         }
     }
 }
